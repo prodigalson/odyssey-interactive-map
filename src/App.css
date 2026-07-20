@@ -524,6 +524,41 @@ header nav a {
   height: 100%;
   object-fit: cover;
 }
+.photo-open {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.photo-open:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -5px;
+}
+.photo-zoom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 9px;
+  border-radius: 2px;
+  background: #172826d9;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: 0.2s;
+}
+.photo-open:hover .photo-zoom,
+.photo-open:focus-visible .photo-zoom {
+  opacity: 1;
+  transform: none;
+}
 .photo-grid figcaption {
   position: absolute;
   bottom: 3px;
@@ -533,6 +568,57 @@ header nav a {
 }
 .photo-grid figcaption a {
   color: #fff;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: #0d1615f2;
+  backdrop-filter: blur(8px);
+  cursor: zoom-out;
+}
+.lightbox-close {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #ffffff75;
+  border-radius: 50%;
+  background: #172826d9;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-frame {
+  max-width: 100%;
+  margin: 0;
+  cursor: default;
+}
+.lightbox-frame img {
+  display: block;
+  max-width: min(94vw, 1800px);
+  max-height: calc(100dvh - 120px);
+  margin: 0 auto;
+  object-fit: contain;
+  box-shadow: 0 24px 80px #0009;
+}
+.lightbox-frame figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 12px;
+  color: #fff;
+  font-size: 16px;
+}
+.lightbox-frame figcaption span {
+  color: #b9c5c1;
+  text-align: right;
 }
 .photo-empty {
   height: 245px;
@@ -1088,6 +1174,30 @@ footer > a {
   }
   .panel-kicker i {
     margin-right: 28px;
+  }
+  .photo-zoom {
+    opacity: 1;
+    transform: none;
+  }
+  .lightbox {
+    padding: 68px 12px 18px;
+  }
+  .lightbox-close {
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+  }
+  .lightbox-frame img {
+    max-width: 100%;
+    max-height: calc(100dvh - 150px);
+  }
+  .lightbox-frame figcaption {
+    flex-direction: column;
+    gap: 2px;
+    font-size: 15px;
+  }
+  .lightbox-frame figcaption span {
+    text-align: left;
   }
 }
 @media (prefers-reduced-motion: reduce) {

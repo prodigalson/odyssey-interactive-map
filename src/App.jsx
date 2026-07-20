@@ -324,7 +324,7 @@ function Arrow() {
     </svg>
   );
 }
-function Photos({ stop, cache, setCache, limit = 3 }) {
+function Photos({ stop, cache, setCache, onOpen, limit = 3 }) {
   const r = cache[stop.id];
   useEffect(() => {
     if (r || !key) return;
@@ -345,7 +345,7 @@ function Photos({ stop, cache, setCache, limit = 3 }) {
           return;
         }
         const photos = (place.photos || []).slice(0, limit).map((photo) => ({
-          src: photo.getURI({ maxWidth: 1800, maxHeight: 1200 }),
+          src: photo.getURI({ maxWidth: 2400, maxHeight: 1600 }),
           credit: (photo.authorAttributions || [])
             .map((author) => author.displayName)
             .filter(Boolean)
@@ -397,21 +397,80 @@ function Photos({ stop, cache, setCache, limit = 3 }) {
     <div className="photo-grid">
       {r.photos.map((p, i) => (
         <figure className={i === 0 ? "hero-photo" : ""} key={p.src}>
-          <img src={p.src} alt={`${r.name || stop.place} from Google Places`} />
+          <button
+            className="photo-open"
+            type="button"
+            aria-label={`View ${r.name || stop.place} photo in full screen`}
+            onClick={() =>
+              onOpen?.({
+                ...p,
+                alt: `${r.name || stop.place} from Google Places`,
+                place: r.name || stop.place,
+              })
+            }
+          >
+            <img
+              src={p.src}
+              alt={`${r.name || stop.place} from Google Places`}
+            />
+            <span className="photo-zoom" aria-hidden="true">
+              Expand
+            </span>
+          </button>
           {p.credit && <figcaption>{p.credit}</figcaption>}
         </figure>
       ))}
     </div>
   );
 }
-function Panel({ stop, onClose, onNext, cache, setCache }) {
+function Lightbox({ photo, onClose }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${photo.place} high-resolution photograph`}
+      onClick={onClose}
+    >
+      <button className="lightbox-close" onClick={onClose} aria-label="Close">
+        ×
+      </button>
+      <figure className="lightbox-frame" onClick={(event) => event.stopPropagation()}>
+        <img src={photo.src} alt={photo.alt} />
+        <figcaption>
+          <strong>{photo.place}</strong>
+          {photo.credit && <span>Photo: {photo.credit}</span>}
+        </figcaption>
+      </figure>
+    </div>
+  );
+}
+function Panel({ stop, onClose, onNext, cache, setCache, onPhotoOpen }) {
   return (
     <aside className="detail-panel">
       <div className="panel-grab" />
       <button className="panel-close" onClick={onClose} aria-label="Close">
         ×
       </button>
-      <Photos stop={stop} cache={cache} setCache={setCache} />
+      <Photos
+        stop={stop}
+        cache={cache}
+        setCache={setCache}
+        onOpen={onPhotoOpen}
+      />
       <div className="panel-body">
         <div className="panel-kicker">
           <span>STOP {stop.n}</span>
@@ -561,7 +620,8 @@ function Map({ active, setActive }) {
 function App() {
   const [active, setActive] = useState(null),
     [photos, setPhotos] = useState({}),
-    [playing, setPlaying] = useState(false);
+    [playing, setPlaying] = useState(false),
+    [lightbox, setLightbox] = useState(null);
   const timer = useRef();
   const playIndex = useRef(0);
   useEffect(() => {
@@ -647,6 +707,7 @@ function App() {
               onNext={next}
               cache={photos}
               setCache={setPhotos}
+              onPhotoOpen={setLightbox}
             />
           )}
         </div>
@@ -691,6 +752,7 @@ function App() {
                   stop={item}
                   cache={photos}
                   setCache={setPhotos}
+                  onOpen={setLightbox}
                   limit={1}
                 />
               </div>
@@ -714,6 +776,9 @@ function App() {
         </div>
         <a href="#top">Return to Troy ↑</a>
       </footer>
+      {lightbox && (
+        <Lightbox photo={lightbox} onClose={() => setLightbox(null)} />
+      )}
     </main>
   );
 }
