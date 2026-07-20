@@ -440,9 +440,13 @@ function Map({ active, setActive }) {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
-    map.fitBounds(L.latLngBounds(Object.values(coordinates)), {
-      padding: [34, 34],
-    });
+    if (window.matchMedia("(max-width: 900px)").matches) {
+      map.setView(coordinates.troy, 6);
+    } else {
+      map.fitBounds(L.latLngBounds(Object.values(coordinates)), {
+        padding: [34, 34],
+      });
+    }
     mapRef.current = map;
     return () => {
       map.remove();
@@ -495,9 +499,16 @@ function Map({ active, setActive }) {
     routeLayerRef.current = group;
     window.setTimeout(() => map.invalidateSize(), 260);
     if (active) {
-      map.flyTo(coordinates[active.id], Math.max(map.getZoom(), 7), {
-        duration: 0.9,
-      });
+      const minimumStopZoom = window.matchMedia("(max-width: 900px)").matches
+        ? 8
+        : 7;
+      map.flyTo(
+        coordinates[active.id],
+        Math.max(map.getZoom(), minimumStopZoom),
+        {
+          duration: 0.9,
+        },
+      );
     }
     return () => group.remove();
   }, [active, setActive]);
