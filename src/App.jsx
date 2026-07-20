@@ -267,7 +267,9 @@ const coordinates = {
   ithaca: [38.428, 20.678],
 };
 
-const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const key =
+  import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
+  import.meta.env.GOOGLE_MAPS_API_KEY;
 let gp;
 function loadPlaces() {
   if (!key) return Promise.reject();
