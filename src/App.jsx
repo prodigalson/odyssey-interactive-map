@@ -240,9 +240,27 @@ const appendix = [
     modern: "Sicily",
     query: "Sicily Italy island coast",
     alternatives: [
-      "Acragas / Agrigento",
-      "Trapani, western Sicily",
-      "Favignana",
+      {
+        id: "thrinacia-agrigento",
+        name: "Acragas / Agrigento",
+        place: "Agrigento",
+        modern: "Acragas / Agrigento",
+        query: "Valley of the Temples Agrigento Sicily Italy",
+      },
+      {
+        id: "thrinacia-trapani",
+        name: "Trapani, western Sicily",
+        place: "Trapani",
+        modern: "Trapani, western Sicily",
+        query: "Trapani Sicily Italy coast",
+      },
+      {
+        id: "thrinacia-favignana",
+        name: "Favignana",
+        place: "Favignana",
+        modern: "Favignana",
+        query: "Favignana Sicily Italy island",
+      },
     ],
     text: "Sicily has held the broad consensus since antiquity; the exact landfall remains open.",
   },
@@ -253,12 +271,49 @@ const appendix = [
     modern: "Gozo",
     query: "Gozo Malta coast",
     alternatives: [
-      "No fixed location",
-      "Gibraltar or an island off Hispania",
-      "Gavdos",
-      "Malta",
-      "An island near Cádiz",
-      "Sardinia or Corsica",
+      {
+        id: "ogygia-no-fixed-location",
+        name: "No fixed location",
+        place: "The open Mediterranean",
+        modern: "Representative Mediterranean seascape",
+        query: "Mediterranean Sea viewpoint",
+        representative: true,
+      },
+      {
+        id: "ogygia-gibraltar",
+        name: "Gibraltar or an island off Hispania",
+        place: "Gibraltar",
+        modern: "Gibraltar or an island off Hispania",
+        query: "Rock of Gibraltar Gibraltar",
+      },
+      {
+        id: "ogygia-gavdos",
+        name: "Gavdos",
+        place: "Gavdos",
+        modern: "Gavdos",
+        query: "Gavdos island Greece coast",
+      },
+      {
+        id: "ogygia-malta",
+        name: "Malta",
+        place: "Malta",
+        modern: "Malta",
+        query: "Malta island coast",
+      },
+      {
+        id: "ogygia-cadiz",
+        name: "An island near Cádiz",
+        place: "Cádiz",
+        modern: "An island near Cádiz",
+        query: "Cádiz Spain coast island",
+      },
+      {
+        id: "ogygia-sardinia-corsica",
+        name: "Sardinia or Corsica",
+        place: "Strait of Bonifacio",
+        modern: "Sardinia or Corsica",
+        query: "Strait of Bonifacio Sardinia Corsica",
+      },
     ],
     text: "Homer may intend placeless remoteness. Gozo is used as a strong modern tradition, not a certainty.",
   },
@@ -268,7 +323,16 @@ const appendix = [
     place: "Corfu",
     modern: "Corfu",
     query: "Paleokastritsa Corfu Greece",
-    alternatives: ["A fictional composite island"],
+    alternatives: [
+      {
+        id: "scheria-fictional-composite",
+        name: "A fictional composite island",
+        place: "The Ionian Sea",
+        modern: "Representative Ionian seascape",
+        query: "Ionian Sea Greece island coast",
+        representative: true,
+      },
+    ],
     text: "Corfu is the mainstream identification: fertile, wealthy, and the last island before the homeward crossing.",
   },
   {
@@ -278,10 +342,35 @@ const appendix = [
     modern: "Ithaca–Kefalonia region",
     query: "Ithaca Kefalonia Greece islands",
     alternatives: [
-      "Modern Ithaki alone",
-      "Lefkada",
-      "Southeast Kefalonia / Paliki",
-      "Thyamus Peninsula",
+      {
+        id: "ithaca-modern-ithaki",
+        name: "Modern Ithaki alone",
+        place: "Ithaki",
+        modern: "Modern Ithaki",
+        query: "Ithaki Greece island",
+      },
+      {
+        id: "ithaca-lefkada",
+        name: "Lefkada",
+        place: "Lefkada",
+        modern: "Lefkada",
+        query: "Lefkada Greece island coast",
+      },
+      {
+        id: "ithaca-paliki",
+        name: "Southeast Kefalonia / Paliki",
+        place: "Paliki",
+        modern: "Southeast Kefalonia / Paliki",
+        query: "Paliki Peninsula Kefalonia Greece",
+      },
+      {
+        id: "ithaca-thyamus",
+        name: "Thyamus Peninsula",
+        place: "Western Greece",
+        modern: "Representative western Greek coast",
+        query: "Acarnania western Greece coast",
+        representative: true,
+      },
     ],
     text: "The composite view reflects scholarly caution and possible Bronze Age coastline changes.",
   },
@@ -652,6 +741,61 @@ function Map({ active, setActive }) {
     </div>
   );
 }
+function AppendixEntry({ item, index, photos, setPhotos, onPhotoOpen }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <details onToggle={(event) => setOpen(event.currentTarget.open)}>
+      <summary>
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <div>
+          <small>{item.place} shown on map</small>
+          <h3>{item.myth}</h3>
+        </div>
+        <b>＋</b>
+      </summary>
+      {open && (
+        <>
+          <div className="appendix-photo">
+            <Photos
+              stop={item}
+              cache={photos}
+              setCache={setPhotos}
+              onOpen={onPhotoOpen}
+              limit={1}
+            />
+          </div>
+          <div className="appendix-body">
+            <p>{item.text}</p>
+            <h4>OTHER IDENTIFICATIONS</h4>
+            <div className="alternative-photo-grid">
+              {item.alternatives.map((alternative) => (
+                <article
+                  className="alternative-photo-card"
+                  key={alternative.id}
+                >
+                  <div className="alternative-photo">
+                    <Photos
+                      stop={alternative}
+                      cache={photos}
+                      setCache={setPhotos}
+                      onOpen={onPhotoOpen}
+                      limit={1}
+                    />
+                  </div>
+                  <p>↳ {alternative.name}</p>
+                  {alternative.representative && (
+                    <small>Representative view</small>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </details>
+  );
+}
 function App() {
   const [active, setActive] = useState(null),
     [photos, setPhotos] = useState({}),
@@ -772,61 +916,15 @@ function App() {
           </div>
         </div>
         <div className="appendix-grid">
-          {appendix.map((item, i) => (
-            <details key={item.id}>
-              <summary>
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <small>{item.place} shown on map</small>
-                  <h3>{item.myth}</h3>
-                </div>
-                <b>＋</b>
-              </summary>
-              <div className="appendix-photo">
-                <Photos
-                  stop={item}
-                  cache={photos}
-                  setCache={setPhotos}
-                  onOpen={setLightbox}
-                  limit={1}
-                />
-              </div>
-              <div className="appendix-body">
-                <p>{item.text}</p>
-                <h4>OTHER IDENTIFICATIONS</h4>
-                <div
-                  className={
-                    item.alternatives.some(
-                      (alternative) => typeof alternative !== "string",
-                    )
-                      ? "alternative-photo-grid"
-                      : "alternative-list"
-                  }
-                >
-                  {item.alternatives.map((alternative) =>
-                    typeof alternative === "string" ? (
-                      <span key={alternative}>↳ {alternative}</span>
-                    ) : (
-                      <article
-                        className="alternative-photo-card"
-                        key={alternative.id}
-                      >
-                        <div className="alternative-photo">
-                          <Photos
-                            stop={alternative}
-                            cache={photos}
-                            setCache={setPhotos}
-                            onOpen={setLightbox}
-                            limit={1}
-                          />
-                        </div>
-                        <p>↳ {alternative.name}</p>
-                      </article>
-                    ),
-                  )}
-                </div>
-              </div>
-            </details>
+          {appendix.map((item, index) => (
+            <AppendixEntry
+              key={item.id}
+              item={item}
+              index={index}
+              photos={photos}
+              setPhotos={setPhotos}
+              onPhotoOpen={setLightbox}
+            />
           ))}
         </div>
       </section>

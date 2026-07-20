@@ -966,6 +966,21 @@ header nav a {
   font-size: 15px;
   line-height: 1.35;
 }
+.alternative-photo-card > small {
+  display: block;
+  margin-top: -6px;
+  padding: 0 11px 12px;
+  color: #8a6453;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.alternative-photo-card:only-child {
+  grid-column: 1 / -1;
+}
+.alternative-photo-card:only-child .alternative-photo {
+  height: 200px;
+}
 footer {
   min-height: 180px;
   padding: 40px clamp(24px, 7vw, 100px);
