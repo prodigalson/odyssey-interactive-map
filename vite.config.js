@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // The Google Maps key is browser-restricted and intentionally exposed.
-  envPrefix: ['VITE_', 'GOOGLE_'],
+  envPrefix: ['VITE_', 'GOOGLE_MAPS_API_KEY'],
 })
