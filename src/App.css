@@ -775,8 +775,53 @@ header nav a {
 .appendix-grid details[open] summary > b {
   transform: rotate(45deg);
 }
+.appendix-photo {
+  height: 240px;
+  overflow: hidden;
+  background: #263735;
+}
+.appendix-photo .photo-grid,
+.appendix-photo .photo-empty,
+.appendix-photo .photo-skeleton {
+  width: 100%;
+  height: 100%;
+}
+.appendix-photo .photo-grid {
+  display: block;
+}
+.appendix-photo .photo-grid figure {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.appendix-photo .photo-grid figure:first-child {
+  display: block;
+}
+.appendix-photo .photo-grid figcaption {
+  left: 10px;
+  bottom: 8px;
+  padding: 4px 7px;
+  background: #172826b8;
+}
+.appendix-photo .photo-empty {
+  padding: 24px 66px;
+}
+.appendix-photo .photo-empty:after {
+  top: -35px;
+}
+.appendix-photo .photo-skeleton {
+  display: block;
+}
+.appendix-photo .photo-skeleton i {
+  display: none;
+}
+.appendix-photo .photo-skeleton i:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .appendix-body {
-  padding: 0 66px 24px;
+  padding: 20px 66px 24px;
 }
 .appendix-body p {
   font: 500 14px/1.5 "Source Serif 4";
@@ -1019,6 +1064,15 @@ footer > a {
   }
   .appendix-body {
     padding: 0 47px 22px;
+  }
+  .appendix-photo {
+    height: 210px;
+  }
+  .appendix-photo .photo-empty {
+    padding: 20px 47px;
+  }
+  .appendix-body {
+    padding-top: 18px;
   }
   .appendix-grid h3 {
     font-size: 23px;

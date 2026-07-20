@@ -202,26 +202,39 @@ const stops = [
 }));
 
 const appendix = [
-  [
-    "The Sirens",
-    "Li Galli",
-    [
+  {
+    id: "appendix-sirens",
+    myth: "The Sirens",
+    place: "Li Galli",
+    modern: "Li Galli",
+    query: "Li Galli islands Positano Italy",
+    alternatives: [
       "Cape Pelorum, northeast Sicily",
       "Sirenum scopuli near Sorrento",
       "Capri and its rocks",
     ],
-    "Li Galli has the longest tradition and evidence of a Greek or Roman sanctuary.",
-  ],
-  [
-    "Thrinacia",
-    "Sicily",
-    ["Acragas / Agrigento", "Trapani, western Sicily", "Favignana"],
-    "Sicily has held the broad consensus since antiquity; the exact landfall remains open.",
-  ],
-  [
-    "Ogygia",
-    "Gozo",
-    [
+    text: "Li Galli has the longest tradition and evidence of a Greek or Roman sanctuary.",
+  },
+  {
+    id: "appendix-thrinacia",
+    myth: "Thrinacia",
+    place: "Sicily",
+    modern: "Sicily",
+    query: "Sicily Italy island coast",
+    alternatives: [
+      "Acragas / Agrigento",
+      "Trapani, western Sicily",
+      "Favignana",
+    ],
+    text: "Sicily has held the broad consensus since antiquity; the exact landfall remains open.",
+  },
+  {
+    id: "appendix-ogygia",
+    myth: "Ogygia",
+    place: "Gozo",
+    modern: "Gozo",
+    query: "Gozo Malta coast",
+    alternatives: [
       "No fixed location",
       "Gibraltar or an island off Hispania",
       "Gavdos",
@@ -229,25 +242,31 @@ const appendix = [
       "An island near Cádiz",
       "Sardinia or Corsica",
     ],
-    "Homer may intend placeless remoteness. Gozo is used as a strong modern tradition, not a certainty.",
-  ],
-  [
-    "Scheria",
-    "Corfu",
-    ["A fictional composite island"],
-    "Corfu is the mainstream identification: fertile, wealthy, and the last island before the homeward crossing.",
-  ],
-  [
-    "Ithaca",
-    "Ithaca–Kefalonia region",
-    [
+    text: "Homer may intend placeless remoteness. Gozo is used as a strong modern tradition, not a certainty.",
+  },
+  {
+    id: "appendix-scheria",
+    myth: "Scheria",
+    place: "Corfu",
+    modern: "Corfu",
+    query: "Paleokastritsa Corfu Greece",
+    alternatives: ["A fictional composite island"],
+    text: "Corfu is the mainstream identification: fertile, wealthy, and the last island before the homeward crossing.",
+  },
+  {
+    id: "appendix-ithaca",
+    myth: "Ithaca",
+    place: "Ithaca–Kefalonia region",
+    modern: "Ithaca–Kefalonia region",
+    query: "Ithaca Kefalonia Greece islands",
+    alternatives: [
       "Modern Ithaki alone",
       "Lefkada",
       "Southeast Kefalonia / Paliki",
       "Thyamus Peninsula",
     ],
-    "The composite view reflects scholarly caution and possible Bronze Age coastline changes.",
-  ],
+    text: "The composite view reflects scholarly caution and possible Bronze Age coastline changes.",
+  },
 ];
 
 const coordinates = {
@@ -305,7 +324,7 @@ function Arrow() {
     </svg>
   );
 }
-function Photos({ stop, cache, setCache }) {
+function Photos({ stop, cache, setCache, limit = 3 }) {
   const r = cache[stop.id];
   useEffect(() => {
     if (r || !key) return;
@@ -325,7 +344,7 @@ function Photos({ stop, cache, setCache }) {
           setCache((c) => ({ ...c, [stop.id]: { status: "error" } }));
           return;
         }
-        const photos = (place.photos || []).slice(0, 3).map((photo) => ({
+        const photos = (place.photos || []).slice(0, limit).map((photo) => ({
           src: photo.getURI({ maxWidth: 1800, maxHeight: 1200 }),
           credit: (photo.authorAttributions || [])
             .map((author) => author.displayName)
@@ -348,7 +367,7 @@ function Photos({ stop, cache, setCache }) {
     return () => {
       live = false;
     };
-  }, [stop, r, setCache]);
+  }, [stop, r, setCache, limit]);
   if (!key)
     return (
       <div className="photo-empty">
@@ -657,20 +676,28 @@ function App() {
           </div>
         </div>
         <div className="appendix-grid">
-          {appendix.map((x, i) => (
-            <details key={x[0]}>
+          {appendix.map((item, i) => (
+            <details key={item.id}>
               <summary>
                 <span>{String(i + 1).padStart(2, "0")}</span>
                 <div>
-                  <small>{x[1]} shown on map</small>
-                  <h3>{x[0]}</h3>
+                  <small>{item.place} shown on map</small>
+                  <h3>{item.myth}</h3>
                 </div>
                 <b>＋</b>
               </summary>
+              <div className="appendix-photo">
+                <Photos
+                  stop={item}
+                  cache={photos}
+                  setCache={setPhotos}
+                  limit={1}
+                />
+              </div>
               <div className="appendix-body">
-                <p>{x[3]}</p>
+                <p>{item.text}</p>
                 <h4>OTHER IDENTIFICATIONS</h4>
-                {x[2].map((o) => (
+                {item.alternatives.map((o) => (
                   <span key={o}>↳ {o}</span>
                 ))}
               </div>
