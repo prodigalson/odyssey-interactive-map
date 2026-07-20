@@ -599,7 +599,7 @@ function App() {
             >
               {playing ? "■ Pause journey" : "▶ Play journey"}
             </button>
-            <p>Tap a numbered place to enter the story.</p>
+            <p>Tap on a number to learn more.</p>
           </div>
         </div>
         <div className={`experience ${active ? "has-panel" : ""}`}>
@@ -644,7 +644,6 @@ function App() {
             <p className="eyebrow">THE SCHOLAR’S MARGIN</p>
             <h2>Other possible worlds</h2>
           </div>
-          <p>Every confident pin hides a centuries-old argument.</p>
         </div>
         <div className="appendix-grid">
           {appendix.map((x, i) => (
@@ -675,11 +674,6 @@ function App() {
             ODYSSEY<small>AN INTERACTIVE VOYAGE</small>
           </span>
         </div>
-        <p>
-          Top-choice route from the supplied research.
-          <br />
-          Images © their Google Places contributors.
-        </p>
         <a href="#top">Return to Troy ↑</a>
       </footer>
     </main>
