@@ -209,9 +209,27 @@ const appendix = [
     modern: "Li Galli",
     query: "Li Galli islands Positano Italy",
     alternatives: [
-      "Cape Pelorum, northeast Sicily",
-      "Sirenum scopuli near Sorrento",
-      "Capri and its rocks",
+      {
+        id: "sirens-cape-pelorum",
+        name: "Cape Pelorum, northeast Sicily",
+        place: "Cape Pelorum",
+        modern: "Cape Pelorum, northeast Sicily",
+        query: "Capo Peloro Messina Sicily Italy",
+      },
+      {
+        id: "sirens-sirenum-scopuli",
+        name: "Sirenum scopuli near Sorrento",
+        place: "Sirenum scopuli",
+        modern: "Sirenum scopuli near Sorrento",
+        query: "Punta Campanella Sorrento Italy coast",
+      },
+      {
+        id: "sirens-capri-rocks",
+        name: "Capri and its rocks",
+        place: "Capri",
+        modern: "Capri and its rocks",
+        query: "Faraglioni di Capri Italy",
+      },
     ],
     text: "Li Galli has the longest tradition and evidence of a Greek or Roman sanctuary.",
   },
@@ -776,9 +794,37 @@ function App() {
               <div className="appendix-body">
                 <p>{item.text}</p>
                 <h4>OTHER IDENTIFICATIONS</h4>
-                {item.alternatives.map((o) => (
-                  <span key={o}>↳ {o}</span>
-                ))}
+                <div
+                  className={
+                    item.alternatives.some(
+                      (alternative) => typeof alternative !== "string",
+                    )
+                      ? "alternative-photo-grid"
+                      : "alternative-list"
+                  }
+                >
+                  {item.alternatives.map((alternative) =>
+                    typeof alternative === "string" ? (
+                      <span key={alternative}>↳ {alternative}</span>
+                    ) : (
+                      <article
+                        className="alternative-photo-card"
+                        key={alternative.id}
+                      >
+                        <div className="alternative-photo">
+                          <Photos
+                            stop={alternative}
+                            cache={photos}
+                            setCache={setPhotos}
+                            onOpen={setLightbox}
+                            limit={1}
+                          />
+                        </div>
+                        <p>↳ {alternative.name}</p>
+                      </article>
+                    ),
+                  )}
+                </div>
               </div>
             </details>
           ))}
