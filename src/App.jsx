@@ -14,7 +14,7 @@ const stops = [
     84,
     19,
     "Ancient City of Troy Hisarlik Turkey",
-    "Odysseus leaves the ruined city with twelve ships, carrying victory—and the choices that will keep him from home for ten years.",
+    "Odysseus leaves the ruined city with twelve ships, carrying victory - and the choices that will keep him from home for ten years.",
   ],
   [
     "ismarus",
@@ -38,7 +38,7 @@ const stops = [
     65,
     61,
     "Cape Maleas Greece",
-    "Within sight of home, a north wind drives the fleet past Cythera and into the unknown—the hinge of the entire voyage.",
+    "Within sight of home, a north wind drives the fleet past Cythera and into the unknown - the hinge of the entire voyage.",
   ],
   [
     "djerba",
@@ -481,7 +481,7 @@ function Map({ active, setActive }) {
       });
       L.marker(coordinates[stop.id], {
         icon,
-        title: `${index + 1}. ${stop.place} — ${stop.myth}`,
+        title: `${index + 1}. ${stop.place} - ${stop.myth}`,
         keyboard: true,
       })
         .bindTooltip(`${index + 1}. ${stop.place}`, {
@@ -635,29 +635,6 @@ function App() {
               <small>{s.myth}</small>
             </button>
           ))}
-        </div>
-      </section>
-      <section className="method" id="method">
-        <div>
-          <p className="eyebrow">READING THE SEA</p>
-          <h2>
-            Myth is not a<br />
-            set of coordinates.
-          </h2>
-        </div>
-        <div>
-          <p>
-            Homer’s geography moves between remembered coastlines, sailor lore,
-            and poetic necessity. This route follows the strongest or most
-            useful modern identifications in the supplied research—not a claim
-            that every monster had an address.
-          </p>
-          <p>
-            Ancient sea levels were lower. Coastlines changed. Some scholars
-            read places as composites; others say Homer was building drama, not
-            a chart.
-          </p>
-          <span>TOP CHOICE = THE ROUTE SHOWN ON THE MAP</span>
         </div>
       </section>
       <section className="appendix" id="appendix">

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=DM+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap");
 :root {
   --ink: #1d2827;
   --paper: #f3efe5;
@@ -12,7 +12,9 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
   color: var(--ink);
   background: var(--paper);
 }
@@ -130,7 +132,7 @@ header nav a {
   color: var(--red);
 }
 .hero h1 {
-  font: 500 clamp(64px, 7.2vw, 108px) / 0.76 "Cormorant Garamond";
+  font: 500 clamp(64px, 7.2vw, 108px) / 0.76 "Atkinson Hyperlegible";
   letter-spacing: -4px;
   margin: 0;
 }
@@ -140,7 +142,7 @@ header nav a {
 .hero-copy > p:not(.eyebrow) {
   max-width: 460px;
   margin: 38px 0 32px;
-  font: 500 21px/1.45 "Cormorant Garamond";
+  font: 500 21px/1.45 "Atkinson Hyperlegible";
   color: #ffffffb8;
 }
 .hero-actions {
@@ -193,7 +195,7 @@ header nav a {
   position: absolute;
   bottom: 10%;
   right: 15%;
-  font: italic 600 19px "Cormorant Garamond";
+  font: italic 600 19px "Atkinson Hyperlegible";
   color: #afc2bc;
 }
 .journey {
@@ -222,14 +224,14 @@ header nav a {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font: 600 10px "Cormorant Garamond";
+  font: 600 10px "Atkinson Hyperlegible";
 }
 .section-head .eyebrow {
   margin-bottom: 7px;
 }
 .section-head h2,
 .method h2 {
-  font: 600 clamp(42px, 5vw, 67px) / 0.95 "Cormorant Garamond";
+  font: 600 clamp(42px, 5vw, 67px) / 0.95 "Atkinson Hyperlegible";
   letter-spacing: -2px;
   margin: 0;
 }
@@ -251,7 +253,7 @@ header nav a {
 }
 .journey-controls p,
 .section-head > p {
-  font: 500 12px "Cormorant Garamond";
+  font: 500 12px "Atkinson Hyperlegible";
   color: #69706d;
 }
 .experience {
@@ -308,7 +310,7 @@ header nav a {
   z-index: 0;
 }
 .real-map.leaflet-container {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
 .real-map .leaflet-control-zoom {
   margin: 16px 0 0 16px;
@@ -323,7 +325,7 @@ header nav a {
   border-bottom: 1px solid #d7d9d4;
   background: #f8f5ed;
   color: #22322f;
-  font: 500 22px/32px "DM Sans";
+  font: 500 22px/32px "Atkinson Hyperlegible";
   transition: 0.15s;
 }
 .real-map .leaflet-control-zoom a:hover {
@@ -358,7 +360,7 @@ header nav a {
   background: #b75535;
   color: #fff;
   box-shadow: 0 4px 14px #26393359;
-  font: 700 10px/1 "DM Sans";
+  font: 700 10px/1 "Atkinson Hyperlegible";
   transition: transform 0.2s, background 0.2s;
 }
 .odyssey-marker:hover {
@@ -382,7 +384,7 @@ header nav a {
   color: #fff !important;
   box-shadow: 0 5px 18px #1828243d !important;
   padding: 7px 9px !important;
-  font: 600 9px "DM Sans" !important;
+  font: 600 9px "Atkinson Hyperlegible" !important;
 }
 .odyssey-tooltip:before {
   border-top-color: #1d2c2a !important;
@@ -404,7 +406,7 @@ header nav a {
 }
 .map-labels {
   fill: #80938c;
-  font: 600 1.8px "DM Sans";
+  font: 600 1.8px "Atkinson Hyperlegible";
   letter-spacing: 0.7px;
 }
 .route-halo {
@@ -436,7 +438,7 @@ header nav a {
   fill: var(--red);
 }
 .map-stop text {
-  font: 700 2.4px "DM Sans";
+  font: 700 2.4px "Atkinson Hyperlegible";
   fill: #713f2e;
   text-anchor: middle;
 }
@@ -548,7 +550,7 @@ header nav a {
   position: absolute;
   right: 20px;
   top: 0;
-  font: 140px "Cormorant Garamond";
+  font: 140px "Atkinson Hyperlegible";
   opacity: 0.1;
 }
 .photo-empty span {
@@ -557,7 +559,7 @@ header nav a {
   opacity: 0.6;
 }
 .photo-empty strong {
-  font: 600 26px "Cormorant Garamond";
+  font: 600 26px "Atkinson Hyperlegible";
   margin: 4px 0;
 }
 .photo-empty small {
@@ -609,11 +611,11 @@ header nav a {
   border-radius: 20px;
 }
 .panel-body h2 {
-  font: 600 42px/1 "Cormorant Garamond";
+  font: 600 42px/1 "Atkinson Hyperlegible";
   margin: 12px 0 0;
 }
 .myth-name {
-  font: italic 600 17px "Cormorant Garamond";
+  font: italic 600 17px "Atkinson Hyperlegible";
   color: #a25d41;
   margin: 2px 0 20px;
 }
@@ -636,7 +638,7 @@ header nav a {
   color: #8a8d87;
 }
 .place-story {
-  font: 500 15px/1.5 "Cormorant Garamond";
+  font: 500 15px/1.5 "Atkinson Hyperlegible";
   color: #4f5854;
 }
 .next-stop {
@@ -655,7 +657,7 @@ header nav a {
   cursor: pointer;
 }
 .photo-source {
-  font: 400 7px/1.45 "DM Sans";
+  font: 400 7px/1.45 "Atkinson Hyperlegible";
   color: #8e918a;
 }
 .route-strip {
@@ -680,14 +682,14 @@ header nav a {
 }
 .route-strip span {
   color: var(--red);
-  font: 600 9px "Cormorant Garamond";
+  font: 600 9px "Atkinson Hyperlegible";
 }
 .route-strip b,
 .route-strip small {
   display: block;
 }
 .route-strip b {
-  font: 600 16px "Cormorant Garamond";
+  font: 600 16px "Atkinson Hyperlegible";
   margin: 9px 0 2px;
 }
 .route-strip small {
@@ -709,7 +711,7 @@ header nav a {
   padding-top: 30px;
 }
 .method > div:last-child p {
-  font: 500 18px/1.6 "Cormorant Garamond";
+  font: 500 18px/1.6 "Atkinson Hyperlegible";
   color: #b9c2bc;
 }
 .method > div:last-child span {
@@ -752,7 +754,7 @@ header nav a {
   display: none;
 }
 .appendix-grid summary > span {
-  font: 600 12px "Cormorant Garamond";
+  font: 600 12px "Atkinson Hyperlegible";
   color: var(--red);
   margin-right: 26px;
 }
@@ -763,7 +765,7 @@ header nav a {
   color: #8d8a81;
 }
 .appendix-grid h3 {
-  font: 600 26px "Cormorant Garamond";
+  font: 600 26px "Atkinson Hyperlegible";
   margin: 3px 0;
 }
 .appendix-grid summary > b {
@@ -777,7 +779,7 @@ header nav a {
   padding: 0 66px 24px;
 }
 .appendix-body p {
-  font: 500 14px/1.5 "Cormorant Garamond";
+  font: 500 14px/1.5 "Atkinson Hyperlegible";
   color: #555c58;
 }
 .appendix-body h4 {
@@ -787,7 +789,7 @@ header nav a {
 }
 .appendix-body span {
   display: block;
-  font: 500 12px/1.8 "Cormorant Garamond";
+  font: 500 12px/1.8 "Atkinson Hyperlegible";
 }
 footer {
   min-height: 180px;
@@ -1039,5 +1041,125 @@ footer > a {
     scroll-behavior: auto !important;
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* A generous, high-legibility type scale for comfortable reading. */
+.brand {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.brand small {
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+header {
+  gap: 22px;
+}
+header nav a,
+.begin,
+.hero-actions button,
+.hero-actions a {
+  font-size: 15px;
+}
+.eyebrow,
+.section-no,
+.journey-controls button {
+  font-size: 14px;
+}
+.journey-controls p,
+.section-head > p {
+  font-size: 17px;
+  line-height: 1.5;
+}
+.appendix .section-head > p {
+  font-size: 17px;
+}
+.map-toolbar {
+  min-height: 56px;
+  height: auto;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.map-hint,
+.odyssey-tooltip,
+.map-legend {
+  font-size: 13px !important;
+}
+.real-map .leaflet-control-attribution {
+  font-size: 11px;
+}
+.odyssey-marker {
+  font-size: 14px;
+}
+.odyssey-marker.is-active {
+  font-size: 16px;
+}
+.photo-grid figcaption {
+  font-size: 11px;
+}
+.photo-empty span,
+.panel-kicker i,
+.place-meta b,
+.photo-source,
+.appendix-body h4 {
+  font-size: 13px;
+}
+.photo-empty small,
+.panel-kicker span,
+.route-strip span,
+.appendix-grid summary small {
+  font-size: 15px;
+}
+.place-meta {
+  font-size: 16px;
+}
+.place-story,
+.appendix-body p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+.next-stop,
+.route-strip small,
+footer p,
+footer > a {
+  font-size: 15px;
+}
+.route-strip button {
+  min-height: 112px;
+}
+.route-strip b {
+  font-size: 19px;
+}
+.appendix-grid summary > span {
+  font-size: 16px;
+}
+.appendix-body span {
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .brand {
+    font-size: 14px;
+    letter-spacing: 1.4px;
+  }
+  .brand small {
+    font-size: 10px;
+  }
+  .begin {
+    margin-left: auto;
+    font-size: 13px;
+  }
+  .map-toolbar {
+    font-size: 13px;
+  }
+  .route-strip button {
+    flex-basis: 155px;
+    min-height: 112px;
+  }
+  footer p,
+  footer > a {
+    font-size: 16px;
   }
 }
