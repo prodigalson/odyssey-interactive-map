@@ -346,10 +346,12 @@ function Photos({ stop, cache, setCache, onOpen, limit = 3 }) {
         }
         const photos = (place.photos || []).slice(0, limit).map((photo) => ({
           src: photo.getURI({ maxWidth: 2400, maxHeight: 1600 }),
-          credit: (photo.authorAttributions || [])
-            .map((author) => author.displayName)
-            .filter(Boolean)
-            .join(", "),
+          attributions: (photo.authorAttributions || [])
+            .filter((author) => author.displayName)
+            .map((author) => ({
+              name: author.displayName,
+              uri: author.uri,
+            })),
         }));
         setCache((c) => ({
           ...c,
@@ -417,7 +419,6 @@ function Photos({ stop, cache, setCache, onOpen, limit = 3 }) {
               Expand
             </span>
           </button>
-          {p.credit && <figcaption>{p.credit}</figcaption>}
         </figure>
       ))}
     </div>
@@ -452,7 +453,23 @@ function Lightbox({ photo, onClose }) {
         <img src={photo.src} alt={photo.alt} />
         <figcaption>
           <strong>{photo.place}</strong>
-          {photo.credit && <span>Photo: {photo.credit}</span>}
+          {!!photo.attributions?.length && (
+            <span className="photo-attribution">
+              Photo source:{" "}
+              {photo.attributions.map((author, index) => (
+                <span key={`${author.name}-${index}`}>
+                  {index > 0 && ", "}
+                  {author.uri ? (
+                    <a href={author.uri} target="_blank" rel="noreferrer">
+                      {author.name}
+                    </a>
+                  ) : (
+                    author.name
+                  )}
+                </span>
+              ))}
+            </span>
+          )}
         </figcaption>
       </figure>
     </div>

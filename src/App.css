@@ -559,16 +559,6 @@ header nav a {
   opacity: 1;
   transform: none;
 }
-.photo-grid figcaption {
-  position: absolute;
-  bottom: 3px;
-  left: 4px;
-  color: #fff;
-  font-size: 5px;
-}
-.photo-grid figcaption a {
-  color: #fff;
-}
 .lightbox {
   position: fixed;
   inset: 0;
@@ -616,9 +606,13 @@ header nav a {
   color: #fff;
   font-size: 16px;
 }
-.lightbox-frame figcaption span {
+.lightbox-frame figcaption > span {
   color: #b9c5c1;
   text-align: right;
+}
+.lightbox-frame figcaption a {
+  color: inherit;
+  text-underline-offset: 3px;
 }
 .photo-empty {
   height: 245px;
@@ -882,12 +876,6 @@ header nav a {
 }
 .appendix-photo .photo-grid figure:first-child {
   display: block;
-}
-.appendix-photo .photo-grid figcaption {
-  left: 10px;
-  bottom: 8px;
-  padding: 4px 7px;
-  background: #172826b8;
 }
 .appendix-photo .photo-empty {
   padding: 24px 66px;
@@ -1196,7 +1184,7 @@ footer > a {
     gap: 2px;
     font-size: 15px;
   }
-  .lightbox-frame figcaption span {
+  .lightbox-frame figcaption > span {
     text-align: left;
   }
 }
@@ -1258,9 +1246,6 @@ header nav a,
 }
 .odyssey-marker.is-active {
   font-size: 16px;
-}
-.photo-grid figcaption {
-  font-size: 11px;
 }
 .photo-empty span,
 .panel-kicker i,
