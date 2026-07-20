@@ -26,11 +26,14 @@ header {
   display: flex;
   align-items: center;
   gap: 50px;
-  position: absolute;
+  position: sticky;
+  top: 0;
   z-index: 20;
   width: 100%;
   color: #f7f2e9;
   border-bottom: 1px solid #ffffff21;
+  background: #172826;
+  box-shadow: 0 6px 24px #14211f24;
 }
 .brand {
   display: flex;
@@ -193,7 +196,9 @@ header nav a {
   font: italic 600 19px "Cormorant Garamond";
   color: #afc2bc;
 }
-.journey,
+.journey {
+  padding: 54px clamp(18px, 5vw, 76px) 100px;
+}
 .appendix {
   padding: 100px clamp(18px, 5vw, 76px);
 }
@@ -920,7 +925,9 @@ footer > a {
     bottom: 9%;
     right: 28%;
   }
-  .journey,
+  .journey {
+    padding: 34px 14px 70px;
+  }
   .appendix {
     padding: 70px 14px;
   }

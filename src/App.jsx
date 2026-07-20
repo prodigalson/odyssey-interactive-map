@@ -582,50 +582,9 @@ function App() {
           <a href="#appendix">Disputed places</a>
         </nav>
         <button className="begin" onClick={begin}>
-          Begin the voyage <Arrow />
+          Start at Troy <Arrow />
         </button>
       </header>
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="eyebrow">HOMER’S MEDITERRANEAN · 14 STOPS · 10 YEARS</p>
-          <h1>
-            A man.
-            <br />A sea.
-            <br />
-            <em>A way home.</em>
-          </h1>
-          <p>
-            Trace Odysseus’ long return from the ashes of Troy to the
-            olive-rooted bed of Ithaca.
-          </p>
-          <div className="hero-actions">
-            <button onClick={begin}>
-              Explore the route <Arrow />
-            </button>
-            <a href="#method">How we mapped the myth</a>
-          </div>
-        </div>
-        <div className="hero-chart">
-          <svg viewBox="0 0 620 500">
-            <path
-              className="hero-land"
-              d="M0 0h620v93l-73 27-64-6-42 56-81 24-53 69-63-51-98 41L0 190Z"
-            />
-            <path
-              className="hero-land lower"
-              d="M0 500h620V414l-116-46-97 49-104-39-109 50L0 396Z"
-            />
-            <path
-              className="hero-route"
-              d="M535 111C447 150 482 270 372 228S232 370 112 408 279 174 435 292 358 108 520 126"
-            />
-            <circle cx="535" cy="111" r="7" />
-            <circle cx="112" cy="408" r="7" />
-            <circle cx="435" cy="292" r="7" />
-          </svg>
-          <p>“Tell me, Muse, of the man of many ways…”</p>
-        </div>
-      </section>
       <section className="journey" id="journey">
         <div className="section-head">
           <div>
