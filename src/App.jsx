@@ -282,7 +282,7 @@ function loadPlaces() {
       delete window[cb];
     };
     const s = document.createElement("script");
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=${cb}`;
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&loading=async&v=weekly&callback=${cb}`;
     s.async = true;
     s.onerror = no;
     document.head.appendChild(s);
@@ -310,34 +310,36 @@ function Photos({ stop, cache, setCache }) {
   useEffect(() => {
     if (r || !key) return;
     let live = true;
-    setCache((c) => ({ ...c, [stop.id]: { status: "loading" } }));
     loadPlaces()
-      .then(() => {
-        const svc = new window.google.maps.places.PlacesService(
-          document.createElement("div"),
-        );
-        svc.findPlaceFromQuery(
-          {
-            query: stop.query,
-            fields: ["name", "formatted_address", "photos"],
+      .then(async () => {
+        const { Place } = await window.google.maps.importLibrary("places");
+        const { places } = await Place.searchByText({
+          textQuery: stop.query,
+          fields: ["displayName", "formattedAddress", "photos"],
+          maxResultCount: 1,
+          language: "en",
+        });
+        if (!live) return;
+        const place = places?.[0];
+        if (!place) {
+          setCache((c) => ({ ...c, [stop.id]: { status: "error" } }));
+          return;
+        }
+        const photos = (place.photos || []).slice(0, 3).map((photo) => ({
+          src: photo.getURI({ maxWidth: 1800, maxHeight: 1200 }),
+          credit: (photo.authorAttributions || [])
+            .map((author) => author.displayName)
+            .filter(Boolean)
+            .join(", "),
+        }));
+        setCache((c) => ({
+          ...c,
+          [stop.id]: {
+            status: "ready",
+            photos,
+            name: place.displayName,
           },
-          (res, status) => {
-            if (!live) return;
-            const p = res?.[0];
-            if (status === "OK" && p) {
-              const photos = (p.photos || [])
-                .slice(0, 3)
-                .map((x) => ({
-                  src: x.getUrl({ maxWidth: 1800, maxHeight: 1200 }),
-                  credit: x.html_attributions?.join(" ") || "",
-                }));
-              setCache((c) => ({
-                ...c,
-                [stop.id]: { status: "ready", photos, name: p.name },
-              }));
-            } else setCache((c) => ({ ...c, [stop.id]: { status: "error" } }));
-          },
-        );
+        }));
       })
       .catch(
         () =>
@@ -377,9 +379,7 @@ function Photos({ stop, cache, setCache }) {
       {r.photos.map((p, i) => (
         <figure className={i === 0 ? "hero-photo" : ""} key={p.src}>
           <img src={p.src} alt={`${r.name || stop.place} from Google Places`} />
-          {p.credit && (
-            <figcaption dangerouslySetInnerHTML={{ __html: p.credit }} />
-          )}
+          {p.credit && <figcaption>{p.credit}</figcaption>}
         </figure>
       ))}
     </div>
