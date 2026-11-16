@@ -937,6 +937,7 @@ function App() {
         </div>
         <a href="#top">Return to Troy ↑</a>
         <a href="https://chingularity.com/terms" target="_blank" rel="noopener" style={{ marginLeft: 0 }}>Terms</a>
+        <a href="https://chingularity.com/privacy" target="_blank" rel="noopener" style={{ marginLeft: 0 }}>Privacy</a>
       </footer>
       {lightbox && (
         <Lightbox photo={lightbox} onClose={() => setLightbox(null)} />
